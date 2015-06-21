@@ -1,0 +1,4 @@
+---
+homebrew_root: /opt/homebrew
+rbenv_root: "{{ homebrew_root }}/var/rbenv"
+nodenv_root: "{{ homebrew_root }}/var/nodenv"
