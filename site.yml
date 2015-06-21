@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  # roles:
+  #   - role: workstation
+  vars:
+    user: "{{ ansible_user_id }}"
+    home: "{{ lookup('env','HOME') }}"
+    #user: "{{ ansible_ssh_user }}"
+    rbenv_root: /opt/homebrew/var/rbenv
+  environment:
+    #make sure linuxbrew will be in path
+    PATH: "/opt/homebrew/bin:{{ ansible_env.PATH }}"
+    RBENV_ROOT: "{{ rbenv_root }}"
+
+
+  tasks:
+    - name: username
+      debug: msg={{user}}
+
+    - include: playbooks/bootstrap.yml
