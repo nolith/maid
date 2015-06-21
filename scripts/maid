@@ -3,11 +3,14 @@ set -e
 
 MAID_ROOT=/opt/maid
 
-if [[ ! -e "$MAID_ROOT/config/github.yml" ]]; then
+if [[ ! -e "${MAID_ROOT}/config/github.yml" ]]; then
     echo "Hello! I need to know your github username"
     echo -n "> "
     read ghuser
     echo -e "---\ngh_user: ${ghuser}" > ${MAID_ROOT}/config/github.yml
+    if [[ ! -e "${MAID_ROOT}/people/${ghuser}.yml" ]]; then
+        echo "---" > ${MAID_ROOT}/people/${ghuser}.yml
+    fi
 fi
 
 echo 'Installing Ansible'
@@ -27,6 +30,6 @@ echo 'Running Ansible to configure Dev machine'
 
 if [[ -x `which ansible` ]]; then
     pushd $MAID_ROOT >/dev/null
-    ansible-playbook $MAID_ROOT/site.yml
+    ansible-playbook site.yml
     popd >/dev/null
 fi

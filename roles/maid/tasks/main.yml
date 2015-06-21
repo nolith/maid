@@ -13,3 +13,12 @@
       - nodenv
 
 - include: people.yml
+
+- name: installing maid_profile
+  lineinfile: >
+    dest={{ home }}/{{ item }}
+    line='source $HOME/.maid_profile'
+    state=present create=yes
+  with_items:
+    - .profile
+    - .zshenv
