@@ -1,0 +1,3 @@
+---
+user: "{{ ansible_user_id }}"
+home: "{{ lookup('env','HOME') }}"

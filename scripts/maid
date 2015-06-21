@@ -2,6 +2,17 @@
 set -e
 
 MAID_ROOT=/opt/maid
+
+if [[ ! -e "${MAID_ROOT}/config/github.yml" ]]; then
+    echo "Hello! I need to know your github username"
+    echo -n "> "
+    read ghuser
+    echo -e "---\ngh_user: ${ghuser}" > ${MAID_ROOT}/config/github.yml
+    if [[ ! -e "${MAID_ROOT}/people/${ghuser}.yml" ]]; then
+        echo "---" > ${MAID_ROOT}/people/${ghuser}.yml
+    fi
+fi
+
 echo 'Installing Ansible'
 
 # prefer pip for installing python packages over the older easy_install
@@ -18,5 +29,7 @@ fi
 echo 'Running Ansible to configure Dev machine'
 
 if [[ -x `which ansible` ]]; then
-  ANSIBLE_LOG_PATH=$MAID_ROOT/logs/ansible.log ansible-playbook -i $MAID_ROOT/hosts $MAID_ROOT/site.yml --ask-sudo-pass
+    pushd $MAID_ROOT >/dev/null
+    ansible-playbook site.yml
+    popd >/dev/null
 fi

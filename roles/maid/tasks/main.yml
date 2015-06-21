@@ -1,0 +1,24 @@
+---
+- name: starting maid
+  debug: msg="Maid setup"
+
+- include: homebrew.yml
+- include: maid.yml
+- name: install required apps from homebrew
+  sudo: false
+  homebrew: name={{item}} state=present update_homebrew=yes
+  with_items:
+      - rbenv
+      - ruby-build
+      - nodenv
+
+- include: people.yml
+
+- name: installing maid_profile
+  lineinfile: >
+    dest={{ home }}/{{ item }}
+    line='source $HOME/.maid_profile'
+    state=present create=yes
+  with_items:
+    - .profile
+    - .zshenv
