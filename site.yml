@@ -12,13 +12,6 @@
 
 
   tasks:
-    - name: username
-      debug: msg={{user}}
 
-    - name: username
-      debug: msg={{ rbenv_root }}
-
-    - include: playbooks/bootstrap.yml
-
-    # - name: gh_Debug
-    #   debug: msg="On github I am {{ ansible_local.nolith.github.username }}"
+#if you need a custom playbook with custom roles
+#- include: playbooks/custom.yml

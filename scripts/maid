@@ -15,8 +15,19 @@ if [[ -x `which pip` && ! -x `which ansible` ]]; then
     sudo CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install ansible
 fi
 
+
+if [[ ! -e "$MAID_ROOT/config/github.yml" ]]; then
+    echo "Hello I need to know tour github username"
+    echo -n "> "
+    read ghuser
+    echo -e "---\ngh_user: ${ghuser}" > ${MAID_ROOT}/config/github.yml
+fi
+
+
 echo 'Running Ansible to configure Dev machine'
 
 if [[ -x `which ansible` ]]; then
+    pushd $MAID_ROOT >/dev/null
     ansible-playbook $MAID_ROOT/site.yml
+    popd >/dev/null
 fi
