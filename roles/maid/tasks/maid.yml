@@ -1,0 +1,15 @@
+---
+- name: making src folder
+  file: dest={{ home }}/src state=directory owner={{ user }}
+  sudo: false
+
+- name: linking maid to our-maid
+  file: >
+    src=/opt/maid
+    dest={{ home }}/src/our-maid
+    state=link
+  sudo: false
+
+- name: maid profile
+  template: src=maid_profile.j2 dest={{ home }}/.maid_profile
+  sudo: false

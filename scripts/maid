@@ -18,5 +18,5 @@ fi
 echo 'Running Ansible to configure Dev machine'
 
 if [[ -x `which ansible` ]]; then
-  ANSIBLE_LOG_PATH=$MAID_ROOT/logs/ansible.log ansible-playbook -i $MAID_ROOT/hosts $MAID_ROOT/site.yml --ask-sudo-pass
+    ansible-playbook $MAID_ROOT/site.yml
 fi

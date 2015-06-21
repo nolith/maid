@@ -1,0 +1,5 @@
+---
+- stat: path="/opt/maid/playbooks/people/{{ gh_user }}.yml"
+  register: person
+- include: ../../../playbooks/people/{{ gh_user }}.yml
+  when: person.stat.isreg

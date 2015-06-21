@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
+  vars_files:
+    - config/github.yml
   roles:
     - role: maid
 
@@ -17,3 +19,6 @@
       debug: msg={{ rbenv_root }}
 
     - include: playbooks/bootstrap.yml
+
+    # - name: gh_Debug
+    #   debug: msg="On github I am {{ ansible_local.nolith.github.username }}"
